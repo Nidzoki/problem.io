@@ -1,0 +1,184 @@
+
+	// SIGNING STUDENTS IN FIRST GRADE OF MIDDLE SCHOOL
+
+	// SCHOOL GRADING SYSTEM IS
+	// 1 - INSUFFICIENT (YOU DID NOT PASS THE SUBJECT SO YOU CAN NOT WRITE THAT AS A GRADE IN THIS PROGRAME)
+	// 2 - SUFFICIENT   
+	// 3 - GOOD
+	// 4 - VERY GOOD
+	// 5 - EXCELLENT
+
+
+	#include <iostream>
+	#include <bits/stdc++.h>
+	#include <fstream>
+
+	using namespace std;
+
+	// DECLARATION OF STRUCTURE STUDENT
+
+	struct Student
+	{   
+	// DECLARATION OF VARIABLES NAME AND SURNAME
+	    string name;
+	    string surname;
+	// DECLARATION OF SCHOOL SUBJECTS
+	    int hrvatski8;
+	    int stranijezik8;
+	    int matematika8;
+	    int fizika8;
+	    int tehnicko8;
+
+	    int hrvatski9;
+	    int stranijezik9;
+	    int matematika9;
+	    int fizika9;
+	    int tehnicko9;
+	// TOTAL SUM OF THEIR GRADES
+	    int total;
+	// POSITION OF STUDENT
+	    int  mjesto;
+	};
+
+	// FUNCTION TO COMPARE 2 STUDENTS
+
+	bool compareTwoStudents(Student a, Student b)
+	{
+
+	    if (a.total != b.total )
+	        return a.total > b.total;
+
+	    if (a.matematika8+a.matematika9 != b.matematika8+b.matematika9)
+
+
+	    return (a.matematika8 + a.matematika9 + a.fizika8 + a.fizika9 > b.fizika8 + b.fizika9 + b.matematika8 + b.matematika9);
+	}
+
+	// FUNCTION TO CALCULATE GRADES
+
+	void computeRanks(Student a[], int n)
+	{
+
+	    for (int i=0; i<n; i++)
+	        a[i].total = a[i].stranijezik8 + a[i].stranijezik9 + a[i].matematika8 + a[i].matematika9 + a[i].fizika8 + a[i].fizika9 + a[i].hrvatski8 + a[i].hrvatski9 + a[i].tehnicko8 + a[i].tehnicko9;
+
+	    sort(a, a+n, compareTwoStudents);
+
+
+	    for (int i=0; i<n; i++)
+	        a[i].mjesto = i+1;
+	}
+
+
+	int main()
+	{
+
+	// DECLARATION OF TEXT FILE
+	   
+	    ofstream out("ispis.txt");
+	    ifstream in("upis.txt");
+
+	// n - NUMBER OF STUDENTS
+	    int n;
+	// INPUT THE NUMBER OF STUDENTS
+	    cout << "Upisite broj ucenika: ";
+
+	    cin >> n;
+	    cin.ignore();
+
+
+
+	    Student a[n];
+
+	// INPUT THE NAME AND SURNAME OF EACH STUDENT AND THEIR GRADES
+	// TRANSLATION ime-name, prezime-surname 
+	// AND matematika, hrvatski, tehnicko, fizika AND strani jezik ARE SCHOOL SUBJECTS
+	    for(int i = 0; i < n; i++){
+	    cout << "Upisite ime " << i+1 << ". ucenika: ";	
+	    cin >> a[i].name;
+	    cout << endl;
+	    cout << "Upisite prezime ucenika: ";
+	    cin >> a[i].surname;
+	    cout << endl;
+	    while(a[i].matematika8 < 2 || a[i].matematika8 > 5){
+	    cout << "Upisite uspjeh iz matematike u 8. razredu: ";
+	    cin >> a[i].matematika8;
+	    cout << endl;
+	    }
+	    while(a[i].fizika8 < 2 || a[i].fizika8 > 5){
+	    cout << "Upisite uspjeh iz fizike u 8. razredu: ";
+	    cin >> a[i].fizika8;
+	    cout << endl;
+	    }
+	    while(a[i].hrvatski8 < 2 || a[i].hrvatski8 > 5){
+	    cout << "Upisite uspjeh iz hrvatskog u 8. razredu: ";
+	    cin >> a[i].hrvatski8;
+	    cout << endl;
+	    }
+	    while(a[i].tehnicko8 < 2 || a[i].tehnicko8 > 5){
+	    cout << "Upisite uspjeh iz tehnicke kulture u 8 razredu: ";
+	    cin >> a[i].tehnicko8;
+	    cout << endl;
+	    }
+	    while(a[i].stranijezik8 < 2 || a[i].stranijezik8 > 5){
+	    cout << "Upisite uspjeh iz stranog jezika u 8. razredu: ";
+	    cin >> a[i].stranijezik8;
+	    cout << endl;
+	    cout << endl;}
+	    while(a[i].matematika9 < 2 || a[i].matematika9 > 5){
+	    cout << "Upisite uspjeh iz matematike u 9. razredu: ";
+	    cin >> a[i].matematika9;
+	    cout << endl;}
+	    while(a[i].fizika9 < 2 || a[i].fizika9 > 5){
+	    cout << "Upisite uspjeh iz fizike u 9. razredu: ";
+	    cin >> a[i].fizika9;
+	    cout << endl;}
+	    while(a[i].hrvatski9 < 2 || a[i].hrvatski9 > 5){
+	    cout << "Upisite uspjeh iz hrvatskog u 9. razredu: ";
+	    cin >> a[i].hrvatski9;
+	    cout << endl;}
+	    while(a[i].tehnicko9 < 2 || a[i].tehnicko9 > 5){
+	    cout << "Upisite uspjeh iz tehnicke kulture u 9. razredu: ";
+	    cin >> a[i].tehnicko9;
+	    cout << endl;}
+	    while(a[i].stranijezik9 < 2 || a[i].stranijezik9 > 5){
+	    cout << "Upisite uspjeh iz stranog jezika u 9. razredu: ";
+	    cin >> a[i].stranijezik9;
+	    cout << endl;}
+	    }
+
+	// OUTPUT ON CONSOLE
+
+	    for (int i=0; i<n; i++)
+	    {
+	        computeRanks(a, n);
+
+
+	        cout <<"Ime: "<< a[i].name << endl;
+	        cout <<"Prezime: "<<  a[i].surname << endl;
+	        cout <<"Mjesto: "<<  a[i].mjesto << endl;
+	        cout <<"Ukupno: "<<  a[i].total <<endl;
+	        cout <<endl; }
+
+	// OUTPUT IN TEXT FILE
+
+	for (int i=0; i<n; i++){
+	        out <<"Ime: "<< a[i].name << endl;
+	        out <<"Prezime: "<<  a[i].surname << endl;
+	        out <<"Mjesto: "<<  a[i].mjesto << endl;
+	        out <<"Ukupno: "<<  a[i].total <<endl;
+	        out <<endl;
+	// SINCE MY SCHOOL SIGNS ONLY 15 STUDENTS FOR ONE CLASS I NEED TO DRAW A LINE BETWEEN THE 15TH AND 16TH STUDENT
+	        if(i==14){
+	            out <<"___________________________________________"<<endl;
+	        }
+	}
+
+	// CLOSING TEXT FILE
+
+	out.close();
+
+	    return 0;
+
+	}
+
